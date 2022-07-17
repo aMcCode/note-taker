@@ -6,20 +6,22 @@ const { createNote, validateNote, findById, deleteNote } = require('../lib/manag
 const { notes } = require('../db/db.json');
 
 router.get('/notes', (req, res) => {
-    res.json(notes);
+  const { notes } = JSON.parse(fs.readFileSync("./db/db.json"));
+    res.json(notes)
 })
 
 router.get('/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
-    if (result) {
-      res.json(result);
-    } else {
-      res.send(404);
-    }
+  const result = findById(req.params.id, notes);
+  if (result) {
+    res.json(result);
+  } else {
+    res.send(404);
+  }
 });
 
 router.post('/notes', (req, res) => {
-    req.body.id = uniqid();
+  const { notes } = JSON.parse(fs.readFileSync("./db/db.json"));
+    req.body.id = uniqid.process();
     if (!validateNote(req.body)) {
       res.status(400).send("This note is not properly formatted.");
     } else {
@@ -29,7 +31,8 @@ router.post('/notes', (req, res) => {
 });
 
 router.delete('/notes/:id', (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
+  const { notes } = JSON.parse(fs.readFileSync("./db/db.json"));
   const notesArray = notes.filter(note => note.id != req.params.id);
   fs.writeFileSync(
     path.join(__dirname, '../db/db.json'),
@@ -37,7 +40,7 @@ router.delete('/notes/:id', (req, res) => {
   );
   const updatedNotes = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
    if (updatedNotes) {
-    console.log("updatedNotes: " + JSON.stringify(updatedNotes));
+    // console.log("updatedNotes: " + JSON.stringify(updatedNotes));
     res.json(updatedNotes);
    } else {
       res.send(404);

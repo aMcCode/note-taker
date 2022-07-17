@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
 
 router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/notes.html'));
-    console.log(res.statusMessage);
 });
 
 router.get('*', (req, res) => {
