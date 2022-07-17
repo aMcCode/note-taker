@@ -18,7 +18,7 @@ This application has been deployed at http://note-taker-amcn.herokuapp.com/.
 A simple web-based application for creating and managing notes.
 
 ![Alt text](./public/assets/images/Landing.gif?raw=true "Landing Page")
-<br>
+#
 ![Alt text](./public/assets/images/Notes.gif?raw=true "Notes Page")
 
 ***
